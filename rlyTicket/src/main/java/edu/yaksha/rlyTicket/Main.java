@@ -6,20 +6,7 @@ import java.util.Scanner;
 public class Main 
 {
 	
-	public static Passenger fareCalculation(Passenger passenger, int normalFare)
-	{
-		double fare=normalFare;
-		int age=passenger.getAge();
-		 if(age<=14)	
-	    		fare=fare-(fare*0.45);
-	    	  else if(age>=65)
-	    	  {
-	    		  fare=fare-fare*0.35;
-	    	  }
-		 passenger.setFare((int)fare);
-		 return passenger;
-
-	}
+	
     public static void main( String[] args )
     {
     	 Scanner scanner=new Scanner(System.in);
@@ -43,7 +30,8 @@ public class Main
     	 String passengerDetails=scanner.nextLine();
     	 String detailArr[]=passengerDetails.split(",");
     	 Passenger passenger=new Passenger(detailArr[0],Integer.parseInt(detailArr[1]));
-    	 passenger=fareCalculation(passenger,normalFare);
+    	 int fare=new TicketCalculate().fareCalculation(passenger,normalFare);
+    	 passenger.setFare(fare);
     	 passengerList.add(passenger);
          }
          int totalFare=0;

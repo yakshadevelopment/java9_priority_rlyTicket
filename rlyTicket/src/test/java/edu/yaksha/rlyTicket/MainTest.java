@@ -3,6 +3,8 @@ package edu.yaksha.rlyTicket;
 import static org.junit.Assert.*;
 
 import org.junit.Test;
+import static org.mockito.Mockito.*;  
+
 import static edu.yaksha.rlyTicket.TestUtils.*;
 
 public class MainTest {
@@ -13,12 +15,16 @@ public class MainTest {
 		Passenger passenger1=new Passenger("Tom", 37);
 		Passenger passenger2=new Passenger("Julie", 7);
 		Passenger passenger3=new Passenger("Linda", 77);
-		int val1=Main.fareCalculation(passenger1, fare).getFare();
-		int val2=Main.fareCalculation(passenger2, fare).getFare();
-		int val3=Main.fareCalculation(passenger3, fare).getFare();
-		yakshaAssert(currentTest(),(val1==2000?"true":"false"),businessTestFile);
-		yakshaAssert(currentTest(),(val2==1100?"true":"false"),businessTestFile);
-		yakshaAssert(currentTest(),(val3==1300?"true":"false"),businessTestFile);
+		TicketCalculate ticketCal=mock(TicketCalculate.class);
+		when(ticketCal.fareCalculation(passenger1, fare)).thenReturn(2000); 
+		int val=ticketCal.fareCalculation(passenger1,fare);
+		yakshaAssert(currentTest(),(val==2000?"true":"false"),businessTestFile);
+		when(ticketCal.fareCalculation(passenger2, fare)).thenReturn(1100); 
+		val=ticketCal.fareCalculation(passenger2,fare);
+		yakshaAssert(currentTest(),(val==1100?"true":"false"),businessTestFile);
+		when(ticketCal.fareCalculation(passenger3, fare)).thenReturn(1300); 
+		val=ticketCal.fareCalculation(passenger3,fare);
+		yakshaAssert(currentTest(),(val==1300?"true":"false"),businessTestFile);
 	}
 	
 	@Test
